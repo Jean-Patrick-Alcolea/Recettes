@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ recette.nom }}{% endblock %}
+
+{% block body %}
+    <section class="detail-recette">
+        <h1>{{ recette.nom }}</h1>
+        <div>Auteur :
+            {% if app.user == recette.Auteur %}
+                    <a id="recette-auteur" href="{{ path('edit')}}"> {{ recette.Auteur.pseudo}}</a></div>
+                {% else %}
+                    <a id="recette-auteur" href="{{ path('otherProfile', {'pseudo': recette.Auteur.pseudo })}}"> {{ recette.Auteur.pseudo}}</a></div>
+            {% endif %}
+
+        <div>Note : {{ recette.note ? recette.note|number_format(2)  : 'Pas encore de Note'}}</div>
+        <div>
+            <h2>Ingredients</h2>
+            <ul>
+                {% for ingredient in recette.ingredients %}
+                    <li>{{ ingredient.quantite}} {{ ingredient.Ingredient.Unite }} de {{ ingredient.Ingredient.nom }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>Portions : {{ recette.portions }}</div>
+        <div>Instructions : {{ recette.instructions }}</div>
+        <div>Temps de preparation : {{ recette.tempsPreparation | date("H:i") }}</div>
+        <div>Temps de cuisson : {{ recette.tempsCuisson | date("H:i") }}</div>
+        <div><h2>Commentaires</h2>
+            <ul>
+                {% for commentaire in comments|slice(0,5) %}
+                    <li>{{ commentaire.texte }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            {% if existingRating is null and app.user != recette.Auteur%}
+                <h2>Notez cette recette</h2>
+                {{ form_start(ratingForm) }}
+                <section class="form-container">
+                    <div class="form-row">
+                        {{ form_label(ratingForm.Value) }}
+                        {{ form_widget(ratingForm.Value,{'attr':{'class': 'input'}}) }}
+                    </div>
+                </section>
+                <button class="form-button" type="submit">Notez</button>
+                {{ form_end(ratingForm) }}
+            {% endif %}
+        </div>
+        <div>
+            {% if existingComment is null and app.user != recette.Auteur %}
+                <h2>Ecrivez un commentaire</h2>
+                {{ form_start(commentForm) }}
+                <section class="form-container">
+                    {{ form_widget(commentForm.Texte,{'attr':{'class': 'text-area-input'}}) }}
+                </section>
+                <button class="form-button" type="submit">Commentez</button>
+                {{ form_end(commentForm) }}
+            {% endif %}
+        </div>
+    </section>
+    {% if app.user == recette.Auteur %}
+        <div class="form-buttons">
+            <button class="form-button"><a href="{{ path('app_modifRecette', {'id': recette.Id}) }}"> Modifiée votre recette</a></button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

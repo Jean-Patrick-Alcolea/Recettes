@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+{% endblock %}
+{% block body %}
+    <h1>Mon profil</h1>
+
+    {{ form_start(editPWForm) }}
+        <section class="form-container">
+            <div class="form-row">
+                {{ form_label(editPWForm.plainPassword) }}
+                {{ form_widget(editPWForm.plainPassword, {'attr': {'class': 'input'}}) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(editPWForm.confirmPassword) }}
+                {{ form_widget(editPWForm.confirmPassword,{'attr': {'class': 'input'}}) }}
+            </div>
+            {{ form_errors(editPWForm.confirmPassword) }}
+        </section>
+        <button type="submit" class="form-button">Enregistrer</button>
+        <button onclick="window.location.href='{{ path('edit') }}'" class="form-button">Retour</button>
+    {{ form_end(editPWForm) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

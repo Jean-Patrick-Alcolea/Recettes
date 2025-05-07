@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+    <h1>Error</h1>
+    <p>{{ message }}</p>
+    <div class="form-buttons">
+        <a class="form-button" href="{{ path('app_accueil') }}">Retour a la page d'accueil</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {{ form_errors(registrationFormType) }}
+
+    {{ form_start(registrationFormType) }}
+        <div class="form-container">
+            <div class="form-row">
+                {{ form_label(registrationFormType.email) }}
+                {{ form_widget(registrationFormType.email, {'attr': {'class': 'input'}}) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(registrationFormType.pseudo) }}
+                {{ form_widget(registrationFormType.pseudo, {'attr': {'class': 'input'}}) }}
+            </div>
+            <div class="form-row">
+                {{ form_label(registrationFormType.plainPassword) }}
+                {{ form_widget(registrationFormType.plainPassword, {'attr': {'class': 'input'}}) }}
+            </div>
+        <button type="submit" class="form-button">Register</button>
+        </div>
+
+    {{ form_end(registrationFormType) }}
+{% endblock %}

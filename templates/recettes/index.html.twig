@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+        <h1>Meilleures Recettes</h1>
+    <section class="recettes-section">
+        {% for recette in meilleuresRecettes %}
+                <a class="recette-link" href="{{path('app_detail', {'id': recette.id}) }}">{{ recette.nom }}</a>
+        {% endfor %}
+    </section>
+        <h2>Nouvelles Recettes</h2>
+    <section class="recettes-section">
+        {% for recette in nouvellesRecettes %}
+                <a class="recette-link" href="{{path('app_detail', {'id': recette.id}) }}">{{ recette.nom }}</a>
+        {% endfor %}
+    </section>
+{% endblock %}
